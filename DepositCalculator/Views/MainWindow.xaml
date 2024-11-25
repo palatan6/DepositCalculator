@@ -4,10 +4,13 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:userControls="clr-namespace:DepositCalculator.UserControls"
+                 xmlns:viewModels="clr-namespace:DepositCalculator.ViewModels"
                  Title="Deposit Calculator"
                  Width="800"
                  Height="450"
-                 mc:Ignorable="d">
+                 mc:Ignorable="d"
+                 d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*" />
@@ -16,6 +19,7 @@
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
@@ -44,17 +48,29 @@
 			</ItemsControl>
 		</GroupBox>
 
-		<StackPanel Grid.Row="2"
-		            Grid.Column="1"
-		            Margin="0,5"
-		            HorizontalAlignment="Center"
-		            Orientation="Horizontal">
-			<mah:NumericUpDown Width="150"
-			                   Height="25"
-			                   Margin="0,0,100,0" />
-			<mah:NumericUpDown Width="150"
-			                   Height="25" />
-		</StackPanel>
+		<Grid Grid.Row="2"
+		      Grid.Column="1"
+		      Margin="0,20">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+
+			<userControls:NumericInput Width="200"
+			                           Value="{Binding Path=DepositAmount, Mode=TwoWay}"
+			                           Caption="Deposit amount:"
+			                           HideUpDownButtons="True"
+			                           Minimum="0"
+			                           Subline="monetary items" />
+			<userControls:NumericInput Grid.Column="1"
+			                           Width="200"
+			                           Value="{Binding Path=Term, Mode=TwoWay}"
+			                           Caption="Term:"
+			                           Minimum="1"
+			                           Subline="months" />
+		</Grid>
+
+
 
 		<GroupBox Grid.Row="3"
 		          Grid.Column="1"
@@ -76,6 +92,15 @@
 				</ItemsControl.ItemsPanel>
 			</ItemsControl>
 		</GroupBox>
+
+		<userControls:NumericInput Grid.Row="4"
+		                           Grid.Column="1"
+		                           Width="200"
+		                           Margin="0,20,0,0"
+		                           Value="{Binding Path=ExpectedIncome, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+		                           Caption="Expected Income:"
+		                           HideUpDownButtons="True"
+		                           IsReadOnly="True" />
 
 	</Grid>
 </mah:MetroWindow>
