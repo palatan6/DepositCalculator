@@ -4,13 +4,78 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 Title="MainWindow"
+                 Title="Deposit Calculator"
                  Width="800"
                  Height="450"
                  mc:Ignorable="d">
 	<Grid>
-		<Button Width="100"
-		        Height="25"
-		        Content="Calculate" />
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="8*" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="4*" />
+		</Grid.RowDefinitions>
+
+		<GroupBox Grid.Row="1"
+		          Grid.Column="1"
+		          Header="Currency">
+
+			<ItemsControl HorizontalAlignment="Center"
+			              ItemsSource="{Binding Path=AvailableCurrencies}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<RadioButton Margin="10,5"
+						             Content="{Binding Path=DisplayName}"
+						             GroupName="Currency"
+						             IsChecked="{Binding Path=IsSelected}" />
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Horizontal" />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+			</ItemsControl>
+		</GroupBox>
+
+		<StackPanel Grid.Row="2"
+		            Grid.Column="1"
+		            Margin="0,5"
+		            HorizontalAlignment="Center"
+		            Orientation="Horizontal">
+			<mah:NumericUpDown Width="150"
+			                   Height="25"
+			                   Margin="0,0,100,0" />
+			<mah:NumericUpDown Width="150"
+			                   Height="25" />
+		</StackPanel>
+
+		<GroupBox Grid.Row="3"
+		          Grid.Column="1"
+		          Header="Interest Payment Method">
+			<ItemsControl HorizontalAlignment="Center"
+			              ItemsSource="{Binding Path=AvailablePaymentMethods}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<RadioButton Margin="10,5"
+						             Content="{Binding Path=DisplayName}"
+						             GroupName="PaymentMethod"
+						             IsChecked="{Binding Path=IsSelected}" />
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Horizontal" />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+			</ItemsControl>
+		</GroupBox>
+
 	</Grid>
 </mah:MetroWindow>
