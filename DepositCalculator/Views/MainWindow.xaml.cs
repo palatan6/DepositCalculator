@@ -1,4 +1,4 @@
-﻿namespace DepositCalculator
+﻿namespace DepositCalculator.Views
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
