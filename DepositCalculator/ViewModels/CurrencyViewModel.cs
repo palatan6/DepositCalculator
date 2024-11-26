@@ -3,28 +3,17 @@ using DepositCalculator.Models;
 
 namespace DepositCalculator.ViewModels;
 
-public class CurrencyViewModel : BindableBase
+public class CurrencyViewModel(ICurrency currency, IEventAggregator eventAggregator) : BindableBase
 {
-	private readonly IEventAggregator _eventAggregator;
-
 	private bool _isSelected;
 
-	public string DisplayName { get; private set; }
+	public string DisplayName { get; private set; } = currency.Name;
 
 	public bool IsSelected
 	{
 		get => _isSelected;
-		set => SetProperty(ref _isSelected, value, _eventAggregator.GetEvent<InputSelectionChangedEvent>().Publish);
+		set => SetProperty(ref _isSelected, value, eventAggregator.GetEvent<InputSelectionChangedEvent>().Publish);
 	}
 
-	public decimal AnnualInterestRate { get; private set; }
-
-	public CurrencyViewModel(ICurrency currency, IEventAggregator eventAggregator)
-	{
-		_eventAggregator = eventAggregator;
-
-		DisplayName = currency.Name;
-
-		AnnualInterestRate = currency.AnnualInterestRate;
-	}
+	public decimal AnnualInterestRate { get; private set; } = currency.AnnualInterestRate;
 }

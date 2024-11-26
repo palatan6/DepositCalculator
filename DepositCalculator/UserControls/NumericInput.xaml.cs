@@ -1,12 +1,11 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 
 namespace DepositCalculator.UserControls
 {
 	/// <summary>
 	/// Interaction logic for NumericInput.xaml
 	/// </summary>
-	public partial class NumericInput : UserControl
+	public partial class NumericInput
 	{
 		public static readonly DependencyProperty CaptionProperty = DependencyProperty.Register(
 			nameof(Caption), typeof(string), typeof(NumericInput), new PropertyMetadata(default(string)));

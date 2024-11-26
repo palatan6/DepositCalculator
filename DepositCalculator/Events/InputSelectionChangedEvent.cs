@@ -1,6 +1,3 @@
 ﻿namespace DepositCalculator.Events;
 
-public class InputSelectionChangedEvent : PubSubEvent
-{
-	
-}
+public class InputSelectionChangedEvent : PubSubEvent;

@@ -9,14 +9,14 @@ public class MainWindowViewModel : BindableBase
 	private readonly IDataProviderService _dataProviderService;
 	private readonly IEventAggregator _eventAggregator;
 
-	private double _depositAmount = 0;
+	private double _depositAmount;
 
 	private double _term = 1;
 	private double _expectedIncome;
 
-	public ObservableCollection<CurrencyViewModel> AvailableCurrencies { get; private set; } = new();
+	public ObservableCollection<CurrencyViewModel> AvailableCurrencies { get; } = new();
 
-	public ObservableCollection<PaymentMethodViewModel> AvailablePaymentMethods { get; private set; } = new();
+	public ObservableCollection<PaymentMethodViewModel> AvailablePaymentMethods { get; } = new();
 
 	private PaymentMethodViewModel? SelectedPaymentMethod => AvailablePaymentMethods.FirstOrDefault(p => p.IsSelected);
 
