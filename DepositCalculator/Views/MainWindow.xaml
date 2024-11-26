@@ -108,6 +108,7 @@
 		                           Margin="0,20,0,0"
 		                           Value="{Binding Path=ExpectedIncome, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
 		                           Caption="Expected Income:"
+		                           FontWeight="Bold"
 		                           HideUpDownButtons="True"
 		                           IsReadOnly="True"
 		                           Subline="{Binding Path=SelectedCurrency.DisplayName}" />
