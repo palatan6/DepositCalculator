@@ -34,10 +34,19 @@
 			              ItemsSource="{Binding Path=AvailableCurrencies}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<RadioButton Margin="10,5"
-						             Content="{Binding Path=DisplayName}"
-						             GroupName="Currency"
-						             IsChecked="{Binding Path=IsSelected}" />
+						<StackPanel Margin="10,5"
+						            Orientation="Horizontal">
+							<RadioButton Content="{Binding Path=DisplayName}"
+							             GroupName="Currency"
+							             IsChecked="{Binding Path=IsSelected}" />
+							<Label Padding="3,0,0,0"
+							       VerticalContentAlignment="Center"
+							       Content="{Binding AnnualInterestRate}"
+							       ContentStringFormat="({0:0}%)"
+							       FontSize="10"
+							       FontStyle="Italic" />
+						</StackPanel>
+
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 				<ItemsControl.ItemsPanel>
