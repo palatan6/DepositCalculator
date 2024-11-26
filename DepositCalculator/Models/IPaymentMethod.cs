@@ -2,5 +2,7 @@
 
 public interface IPaymentMethod
 {
-	string Name { get; set; }
+	string Name { get; }
+
+	double CalculateExpectedIncome(double depositAmount, decimal annualInterestRate, double term );
 }

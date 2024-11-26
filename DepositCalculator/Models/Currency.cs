@@ -4,10 +4,13 @@ public class Currency : ICurrency
 {
 	public string Name { get; set; }
 
-	public decimal AnnualInterestRate { get; set; } = 5;
+	public decimal AnnualInterestRate { get; set; }
 
-	public Currency( string name )
+	/// <param name="name">Currency name</param>
+	/// <param name="annualInterestRate">Annual Interest Rate value in %</param>
+	public Currency(string name, decimal annualInterestRate)
 	{
 		Name = name;
+		AnnualInterestRate = annualInterestRate;
 	}
 }

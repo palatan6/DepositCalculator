@@ -1,20 +1,22 @@
 ﻿using System.Collections.ObjectModel;
 using DepositCalculator.Events;
-using DepositCalculator.Models;
+using DepositCalculator.Services;
 
 namespace DepositCalculator.ViewModels;
 
 public class MainWindowViewModel : BindableBase
 {
+	private readonly IDataProviderService _dataProviderService;
 	private readonly IEventAggregator _eventAggregator;
+
 	private double _depositAmount = 0;
 
 	private double _term = 1;
 	private double _expectedIncome;
 
-	public ObservableCollection<CurrencyViewModel> AvailableCurrencies { get; private set; } = new ObservableCollection<CurrencyViewModel>();
+	public ObservableCollection<CurrencyViewModel> AvailableCurrencies { get; private set; } = new();
 
-	public ObservableCollection<PaymentMethodViewModel> AvailablePaymentMethods { get; private set; } = new ObservableCollection<PaymentMethodViewModel>();
+	public ObservableCollection<PaymentMethodViewModel> AvailablePaymentMethods { get; private set; } = new();
 
 	private CurrencyViewModel? SelectedCurrency => AvailableCurrencies.FirstOrDefault(c => c.IsSelected);
 	private PaymentMethodViewModel? SelectedPaymentMethod => AvailablePaymentMethods.FirstOrDefault(p => p.IsSelected);
@@ -37,27 +39,15 @@ public class MainWindowViewModel : BindableBase
 		set => SetProperty(ref _expectedIncome, value);
 	}
 
-	public MainWindowViewModel(IEventAggregator eventAggregator)
+	public MainWindowViewModel(IDataProviderService dataProviderService, IEventAggregator eventAggregator)
 	{
 		_eventAggregator = eventAggregator;
 		_eventAggregator.GetEvent<InputDataChangedEvent>().Subscribe(OnChanged);
 
-		var currencyViewModels = new List<CurrencyViewModel>()
-		{
-			new(new Currency("EUR"), _eventAggregator) { IsSelected = true },
-			new(new Currency("USD"), _eventAggregator),
-			new(new Currency("UAH"), _eventAggregator)
-		};
+		_dataProviderService = dataProviderService;
 
-		AvailableCurrencies.AddRange(currencyViewModels);
-
-		var paymentMethodsViewModels = new List<PaymentMethodViewModel>()
-		{
-			new(new PaymentMethod("Capitalization"), _eventAggregator) { IsSelected = true },
-			new(new PaymentMethod("Monthly Payout"), _eventAggregator)
-		};
-
-		AvailablePaymentMethods.AddRange(paymentMethodsViewModels);
+		InitializeAvailableCurrencies();
+		InitializeAvailablePaymentMethods();
 	}
 
 	private void OnChanged()
@@ -69,16 +59,46 @@ public class MainWindowViewModel : BindableBase
 			return;
 		}
 
-		if (SelectedPaymentMethod.DisplayName == "Monthly Payout" )
+		ExpectedIncome =
+			SelectedPaymentMethod.PaymentMethod.CalculateExpectedIncome(DepositAmount,
+				SelectedCurrency.AnnualInterestRate, Term);
+	}
+
+	private void InitializeAvailableCurrencies()
+	{
+		AvailableCurrencies.Clear();
+
+		var currencyViewModels = _dataProviderService.GetAvailableCurrencies()
+			.Select(c => new CurrencyViewModel(c, _eventAggregator)).ToList();
+
+		var firstCurrency = currencyViewModels.FirstOrDefault();
+
+		if (firstCurrency == null)
 		{
-			var monthlyInterest = DepositAmount * (double)((SelectedCurrency.AnnualInterestRate/100) / 12);
-			ExpectedIncome = monthlyInterest * Term;
-		}
-		else
-		{
-			ExpectedIncome = 100500;
+			return;
 		}
 
-		
+		firstCurrency.IsSelected = true;
+
+		AvailableCurrencies.AddRange(currencyViewModels);
+	}
+
+	private void InitializeAvailablePaymentMethods()
+	{
+		AvailablePaymentMethods.Clear();
+
+		var paymentMethodsViewModels = _dataProviderService.GetAvailablePaymentMethods()
+			.Select(p => new PaymentMethodViewModel(p, _eventAggregator)).ToList();
+
+		var firstPaymentMethod = paymentMethodsViewModels.FirstOrDefault();
+
+		if (firstPaymentMethod == null)
+		{
+			return;
+		}
+
+		firstPaymentMethod.IsSelected = true;
+
+		AvailablePaymentMethods.AddRange(paymentMethodsViewModels);
 	}
 }

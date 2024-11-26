@@ -10,7 +10,7 @@ namespace DepositCalculator
 	{
 		protected override void RegisterTypes(IContainerRegistry containerRegistry)
 		{
-			
+			containerRegistry.Register<Services.IDataProviderService, Services.DataProviderService>();
 		}
 
 		protected override Window CreateShell()

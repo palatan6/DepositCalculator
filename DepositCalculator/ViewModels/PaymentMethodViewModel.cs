@@ -11,6 +11,8 @@ public class PaymentMethodViewModel : BindableBase
 
 	public string DisplayName { get; private set; }
 
+	public IPaymentMethod PaymentMethod { get; }
+	
 	public bool IsSelected
 	{
 		get => _isSelected;
@@ -22,5 +24,6 @@ public class PaymentMethodViewModel : BindableBase
 		_eventAggregator = eventAggregator;
 
 		DisplayName = paymentMethod.Name;
+		PaymentMethod = paymentMethod;
 	}
 }
