@@ -2,12 +2,10 @@
 
 public class PaymentMethod : IPaymentMethod
 {
-	public string DisplayName { get; set; }
+	public string Name { get; set; }
 
-	public bool IsSelected { get; set; }
-
-	public PaymentMethod( string displayName )
+	public PaymentMethod( string name )
 	{
-		DisplayName = displayName;
+		Name = name;
 	}
 }

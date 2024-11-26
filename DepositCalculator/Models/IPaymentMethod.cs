@@ -2,7 +2,5 @@
 
 public interface IPaymentMethod
 {
-	string DisplayName { get; set; }
-
-	bool IsSelected { get; set; }
+	string Name { get; set; }
 }

@@ -2,14 +2,12 @@
 
 public class Currency : ICurrency
 {
-	public string DisplayName { get; set; }
-
-	public bool IsSelected { get; set; }
+	public string Name { get; set; }
 
 	public decimal AnnualInterestRate { get; set; } = 5;
 
-	public Currency( string displayName )
+	public Currency( string name )
 	{
-		DisplayName = displayName;
+		Name = name;
 	}
 }
