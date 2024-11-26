@@ -14,7 +14,7 @@ public class CurrencyViewModel : BindableBase
 	public bool IsSelected
 	{
 		get => _isSelected;
-		set => SetProperty(ref _isSelected, value, _eventAggregator.GetEvent<InputDataChangedEvent>().Publish);
+		set => SetProperty(ref _isSelected, value, _eventAggregator.GetEvent<InputSelectionChangedEvent>().Publish);
 	}
 
 	public decimal AnnualInterestRate { get; private set; }

@@ -43,7 +43,7 @@ public class MainWindowViewModel : BindableBase
 	public MainWindowViewModel(IDataProviderService dataProviderService, IEventAggregator eventAggregator)
 	{
 		_eventAggregator = eventAggregator;
-		_eventAggregator.GetEvent<InputDataChangedEvent>().Subscribe(OnInputSelectionChanged);
+		_eventAggregator.GetEvent<InputSelectionChangedEvent>().Subscribe(OnInputSelectionChanged);
 
 		_dataProviderService = dataProviderService;
 

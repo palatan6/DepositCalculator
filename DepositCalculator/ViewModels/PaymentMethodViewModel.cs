@@ -16,7 +16,7 @@ public class PaymentMethodViewModel : BindableBase
 	public bool IsSelected
 	{
 		get => _isSelected;
-		set => SetProperty(ref _isSelected, value, _eventAggregator.GetEvent<InputDataChangedEvent>().Publish );
+		set => SetProperty(ref _isSelected, value, _eventAggregator.GetEvent<InputSelectionChangedEvent>().Publish );
 	}
 
 	public PaymentMethodViewModel(IPaymentMethod paymentMethod, IEventAggregator eventAggregator )
