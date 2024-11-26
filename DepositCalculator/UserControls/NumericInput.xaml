@@ -16,7 +16,8 @@
 		                   Value="{Binding Value}"
 		                   HideUpDownButtons="{Binding Path=HideUpDownButtons}"
 		                   IsReadOnly="{Binding IsReadOnly}"
-		                   Minimum="{Binding Path=Minimum}" />
+		                   Minimum="{Binding Path=Minimum}"
+		                   StringFormat="{}{0:0.###}" />
 
 		<Label Padding="0,0,0,0"
 		       HorizontalAlignment="Right"
