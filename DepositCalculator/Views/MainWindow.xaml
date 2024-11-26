@@ -30,31 +30,34 @@
 		          Grid.Column="1"
 		          Header="Currency">
 
-			<ItemsControl HorizontalAlignment="Center"
-			              ItemsSource="{Binding Path=AvailableCurrencies}">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<StackPanel Margin="10,5"
-						            Orientation="Horizontal">
-							<RadioButton Content="{Binding Path=DisplayName}"
-							             GroupName="Currency"
-							             IsChecked="{Binding Path=IsSelected}" />
-							<Label Padding="3,0,0,0"
-							       VerticalContentAlignment="Center"
-							       Content="{Binding AnnualInterestRate}"
-							       ContentStringFormat="({0:0}%)"
-							       FontSize="10"
-							       FontStyle="Italic" />
-						</StackPanel>
+			<ScrollViewer HorizontalScrollBarVisibility="Auto"
+			              VerticalScrollBarVisibility="Auto">
+				<ItemsControl HorizontalAlignment="Center"
+				              ItemsSource="{Binding Path=AvailableCurrencies}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<StackPanel Margin="10,5"
+							            Orientation="Horizontal">
+								<RadioButton Content="{Binding Path=DisplayName}"
+								             GroupName="Currency"
+								             IsChecked="{Binding Path=IsSelected}" />
+								<Label Padding="3,0,0,0"
+								       VerticalContentAlignment="Center"
+								       Content="{Binding AnnualInterestRate}"
+								       ContentStringFormat="({0:0}%)"
+								       FontSize="10"
+								       FontStyle="Italic" />
+							</StackPanel>
 
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-				<ItemsControl.ItemsPanel>
-					<ItemsPanelTemplate>
-						<StackPanel Orientation="Horizontal" />
-					</ItemsPanelTemplate>
-				</ItemsControl.ItemsPanel>
-			</ItemsControl>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Horizontal" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+				</ItemsControl>
+			</ScrollViewer>
 		</GroupBox>
 
 		<Grid Grid.Row="2"
@@ -84,22 +87,25 @@
 		<GroupBox Grid.Row="3"
 		          Grid.Column="1"
 		          Header="Interest Payment Method">
-			<ItemsControl HorizontalAlignment="Center"
-			              ItemsSource="{Binding Path=AvailablePaymentMethods}">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<RadioButton Margin="10,5"
-						             Content="{Binding Path=DisplayName}"
-						             GroupName="PaymentMethod"
-						             IsChecked="{Binding Path=IsSelected}" />
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-				<ItemsControl.ItemsPanel>
-					<ItemsPanelTemplate>
-						<StackPanel Orientation="Horizontal" />
-					</ItemsPanelTemplate>
-				</ItemsControl.ItemsPanel>
-			</ItemsControl>
+			<ScrollViewer HorizontalScrollBarVisibility="Auto"
+			              VerticalScrollBarVisibility="Auto">
+				<ItemsControl HorizontalAlignment="Center"
+				              ItemsSource="{Binding Path=AvailablePaymentMethods}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<RadioButton Margin="10,5"
+							             Content="{Binding Path=DisplayName}"
+							             GroupName="PaymentMethod"
+							             IsChecked="{Binding Path=IsSelected}" />
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Horizontal" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+				</ItemsControl>
+			</ScrollViewer>
 		</GroupBox>
 
 		<userControls:NumericInput Grid.Row="4"
