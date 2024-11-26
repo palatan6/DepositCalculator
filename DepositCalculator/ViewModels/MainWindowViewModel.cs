@@ -18,19 +18,20 @@ public class MainWindowViewModel : BindableBase
 
 	public ObservableCollection<PaymentMethodViewModel> AvailablePaymentMethods { get; private set; } = new();
 
-	private CurrencyViewModel? SelectedCurrency => AvailableCurrencies.FirstOrDefault(c => c.IsSelected);
 	private PaymentMethodViewModel? SelectedPaymentMethod => AvailablePaymentMethods.FirstOrDefault(p => p.IsSelected);
+
+	public CurrencyViewModel? SelectedCurrency => AvailableCurrencies.FirstOrDefault( c => c.IsSelected );
 
 	public double DepositAmount
 	{
 		get => _depositAmount;
-		set => SetProperty(ref _depositAmount, value, OnChanged);
+		set => SetProperty(ref _depositAmount, value, OnDataChanged);
 	}
 
 	public double Term
 	{
 		get => _term;
-		set => SetProperty(ref _term, value, OnChanged);
+		set => SetProperty(ref _term, value, OnDataChanged);
 	}
 
 	public double ExpectedIncome
@@ -42,7 +43,7 @@ public class MainWindowViewModel : BindableBase
 	public MainWindowViewModel(IDataProviderService dataProviderService, IEventAggregator eventAggregator)
 	{
 		_eventAggregator = eventAggregator;
-		_eventAggregator.GetEvent<InputDataChangedEvent>().Subscribe(OnChanged);
+		_eventAggregator.GetEvent<InputDataChangedEvent>().Subscribe(OnInputSelectionChanged);
 
 		_dataProviderService = dataProviderService;
 
@@ -50,7 +51,14 @@ public class MainWindowViewModel : BindableBase
 		InitializeAvailablePaymentMethods();
 	}
 
-	private void OnChanged()
+	private void OnInputSelectionChanged()
+	{
+		RaisePropertyChanged(nameof(SelectedCurrency));
+
+		OnDataChanged();
+	}
+
+	private void OnDataChanged()
 	{
 		if (SelectedPaymentMethod == null || SelectedCurrency == null)
 		{

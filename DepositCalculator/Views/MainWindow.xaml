@@ -70,7 +70,7 @@
 			                           Caption="Deposit amount:"
 			                           HideUpDownButtons="True"
 			                           Minimum="0"
-			                           Subline="monetary items" />
+			                           Subline="{Binding Path=SelectedCurrency.DisplayName}" />
 			<userControls:NumericInput Grid.Column="1"
 			                           Width="200"
 			                           Value="{Binding Path=Term, Mode=TwoWay}"
@@ -109,7 +109,8 @@
 		                           Value="{Binding Path=ExpectedIncome, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
 		                           Caption="Expected Income:"
 		                           HideUpDownButtons="True"
-		                           IsReadOnly="True" />
+		                           IsReadOnly="True"
+		                           Subline="{Binding Path=SelectedCurrency.DisplayName}" />
 
 	</Grid>
 </mah:MetroWindow>
