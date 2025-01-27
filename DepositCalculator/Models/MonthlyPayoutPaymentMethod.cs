@@ -4,9 +4,9 @@ public class MonthlyPayoutPaymentMethod : IPaymentMethod
 {
 	public string Name => "Monthly Payout";
 
-	public double CalculateExpectedIncome(double depositAmount, decimal annualInterestRate, double term)
+	public double CalculateExpectedIncome(double depositAmount, double annualInterestRate, int term)
 	{
-		var monthlyInterest = depositAmount * (double)((annualInterestRate / 100) / 12);
+		var monthlyInterest = depositAmount * ((annualInterestRate / 100) / 12);
 		return monthlyInterest * term;
 	}
 }

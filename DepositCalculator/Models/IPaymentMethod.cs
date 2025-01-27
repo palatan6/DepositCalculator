@@ -4,5 +4,5 @@ public interface IPaymentMethod
 {
 	string Name { get; }
 
-	double CalculateExpectedIncome(double depositAmount, decimal annualInterestRate, double term );
+	double CalculateExpectedIncome(double depositAmount, double annualInterestRate, int term );
 }

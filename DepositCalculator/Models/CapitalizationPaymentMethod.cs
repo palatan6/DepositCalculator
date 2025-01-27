@@ -7,10 +7,10 @@ public class CapitalizationPaymentMethod : IPaymentMethod
 	/// <summary>
 	/// <see href="https://en.wikipedia.org/wiki/Compound_interest#Periodic_compounding"/>>
 	/// </summary>
-	public double CalculateExpectedIncome(double depositAmount, decimal annualInterestRate, double term)
+	public double CalculateExpectedIncome(double depositAmount, double annualInterestRate, int term)
 	{
 		// nominal annual interest rate
-		var r = (double)annualInterestRate / 100;
+		var r = annualInterestRate / 100;
 
 		// compounding frequency. My assumption it's once perf month, so 12 times per year; 
 		var n = 12;

@@ -15,5 +15,5 @@ public class CurrencyViewModel(ICurrency currency, IEventAggregator eventAggrega
 		set => SetProperty(ref _isSelected, value, eventAggregator.GetEvent<InputSelectionChangedEvent>().Publish);
 	}
 
-	public decimal AnnualInterestRate { get; private set; } = currency.AnnualInterestRate;
+	public double AnnualInterestRate { get; private set; } = currency.AnnualInterestRate;
 }

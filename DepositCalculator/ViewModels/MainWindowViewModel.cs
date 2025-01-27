@@ -11,7 +11,7 @@ public class MainWindowViewModel : BindableBase
 
 	private double _depositAmount;
 
-	private double _term = 1;
+	private int _term = 1;
 	private double _expectedIncome;
 
 	public ObservableCollection<CurrencyViewModel> AvailableCurrencies { get; } = new();
@@ -28,7 +28,7 @@ public class MainWindowViewModel : BindableBase
 		set => SetProperty(ref _depositAmount, value, OnDataChanged);
 	}
 
-	public double Term
+	public int Term
 	{
 		get => _term;
 		set => SetProperty(ref _term, value, OnDataChanged);
